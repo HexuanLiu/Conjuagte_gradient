@@ -13,6 +13,14 @@ A = A/norm(A);  % To avoid scale factors, normalize A.
 x0 = zeros(n,1);
 x_true = randn(n,1);   % Set random solution.
 b = A*x_true;          % Compute right-hand side vector.
+
+%  Make sure we have the correct x_true by solving the linear system using multiprecision.
+ndigits = 32; 
+digits(ndigits)
+A_vpa = vpa(A); b_vpa = vpa(b);
+x_vpa = A_vpa\b_vpa;
+x_true = double(x_vpa);
+
 flag = 1;
 itmax = 1200;
 
